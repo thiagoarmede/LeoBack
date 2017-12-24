@@ -33,6 +33,7 @@ router.get('/groups/:groupId', function(req, res, next) {
   })
 });
 
+
 router.get('/tests/', function(req, res, next) {
   res.json({
     error: false,
@@ -63,6 +64,7 @@ router.get('/tests/:testId', function(req, res, next) {
   })
 });
 
+
 router.get('/announcements/', function(req, res, next) {
   res.json({
     error: false,
@@ -88,9 +90,248 @@ router.get('/announcements/:announcementsId', function(req, res, next) {
 });
 
 
+router.get('/classes/', function(req, res, next) {
+  res.json({
+    error: false,
+    response: [{
+      "id" : "5a3fcbb427433010741cab9d",
+      "nome" : "compiladores",
+      "optativa" : false,
+      "professor" : {
+        "id" : "5a39d1a6196a8e41f0857f75",
+        "nome" : "antonio atta fontes",
+        "apelidos" : [
+          "atta",
+          "darth vader"
+        ],
+        "email" : "atta@uneb.br",
+        "tefone" : null,
+        "curriculumLates" : "https://www.google.com"
+      }
+    }]
+  })
+});
+
+router.get('/classes/:classesId', function(req, res, next) {
+  res.json({
+    error: false,
+    response: {
+      "id" : "5a3fcbb427433010741cab9d",
+      "nome" : "compiladores",
+      "optativa" : false,
+      "professor" : {
+        "id" : "5a39d1a6196a8e41f0857f75",
+        "nome" : "antonio atta fontes",
+        "apelidos" : [
+          "atta",
+          "darth vader"
+        ],
+        "email" : "atta@uneb.br",
+        "tefone" : null,
+        "curriculumLates" : "https://www.google.com"
+      }
+    }
+  })
+});
 
 
+router.get('/events/', function(req, res, next) {
+  res.json({
+    error: false,
+    response: [{
+      "id" : "5a3fb20427433010741cab8f",
+      "nome" : "evento",
+      "descricao" : "bla bla bla bla bla bla bla",
+      "pago" : true,
+      "dataInicio" : "2015-10-26T07:46:36.611Z",
+      "dataFinal" : "2015-10-26T07:46:36.611Z",
+      "linkInfo" : "http://www.google.com"
+    }]
+  })
+});
 
+router.get('/events/:eventsId', function(req, res, next) {
+  res.json({
+    error: false,
+    response: {
+      "id" : "5a3fb20427433010741cab8f",
+      "nome" : "evento",
+      "descricao" : "bla bla bla bla bla bla bla",
+      "pago" : true,
+      "dataInicio" : "2015-10-26T07:46:36.611Z",
+      "dataFinal" : "2015-10-26T07:46:36.611Z",
+      "linkInfo" : "http://www.google.com"
+    }
+  })
+});
+
+
+router.get('/info/', function(req, res, next) {
+  res.json({
+    error: false,
+    response: [{
+      "id" : "5a3fb2ed27433010741cab92",
+      "nome" : "proposta de horario proximo semestre",
+      "descricao" : "bla bla bla bla bla bla bla bla bla bla bla bla bla bla",
+      "link" : "http://www.google.com"
+    }]
+  })
+});
+
+router.get('/info/:infoId', function(req, res, next) {
+  res.json({
+    error: false,
+    response: {
+      "id" : "5a3fb2ed27433010741cab92",
+      "nome" : "proposta de horario proximo semestre",
+      "descricao" : "bla bla bla bla bla bla bla bla bla bla bla bla bla bla",
+      "link" : "http://www.google.com"
+    }
+  })
+});
+
+
+router.get('/teachers/', function(req, res, next) {
+  res.json({
+    error: false,
+    response: [{
+        "id" : "5a39d1a6196a8e41f0857f75",
+        "nome" : "antonio atta fontes",
+        "apelidos" : [
+          "atta",
+          "darth vader"
+        ],
+        "email" : "atta@uneb.br",
+        "tefone" : null,
+        "curriculumLates" : "https://www.google.com"
+      }]
+  })
+});
+
+router.get('/teachers/:teachersId', function(req, res, next) {
+  res.json({
+    error: false,
+    response: {
+        "id" : "5a39d1a6196a8e41f0857f75",
+        "nome" : "antonio atta fontes",
+        "apelidos" : [
+          "atta",
+          "darth vader"
+        ],
+        "email" : "atta@uneb.br",
+        "tefone" : null,
+        "curriculumLates" : "https://www.google.com"
+      }
+  })
+});
+
+
+router.get('/oldtests/', function(req, res, next) {
+  res.json({
+    error: false,
+    response: [{
+      "id" : "5a3fcd3c27433010741cab9e",
+      "disciplina" : {
+        "id" : "5a3fcbb427433010741cab9d",
+        "nome" : "compiladores",
+        "optativa" : false,
+        "professor" : {
+          "id" : "5a39d1a6196a8e41f0857f75",
+          "nome" : "antonio atta fontes",
+          "apelidos" : [
+            "atta",
+            "darth vader"
+          ],
+          "email" : "atta@uneb.br",
+          "tefone" : null,
+          "curriculumLates" : "https://www.google.com"
+        }
+      },
+      "ano" : 2017.0,
+      "linkPdf" : "http://www.gdrive.com/si/compiladores/2017/prova1"
+    }]
+  })
+});
+
+router.get('/oldtests/:oldtestsId', function(req, res, next) {
+  res.json({
+    error: false,
+    response: {
+      "id" : "5a3fcd3c27433010741cab9e",
+      "disciplina" : {
+        "id" : "5a3fcbb427433010741cab9d",
+        "nome" : "compiladores",
+        "optativa" : false,
+        "professor" : {
+          "id" : "5a39d1a6196a8e41f0857f75",
+          "nome" : "antonio atta fontes",
+          "apelidos" : [
+            "atta",
+            "darth vader"
+          ],
+          "email" : "atta@uneb.br",
+          "tefone" : null,
+          "curriculumLates" : "https://www.google.com"
+        }
+      },
+      "ano" : 2017.0,
+      "linkPdf" : "http://www.gdrive.com/si/compiladores/2017/prova1"
+    }
+  })
+});
+
+
+router.get('/finaltests/', function(req, res, next) {
+  res.json({
+    error: false,
+    response: [{
+      "id" : "5a3fcfb927433010741caba0",
+      "disciplina" : {
+        "id" : "5a3fcbb427433010741cab9d",
+        "nome" : "compiladores",
+        "optativa" : false,
+        "professor" : {
+          "id" : "5a39d1a6196a8e41f0857f75",
+          "nome" : "antonio atta fontes",
+          "apelidos" : [
+            "atta",
+            "darth vader"
+          ],
+          "email" : "atta@uneb.br",
+          "tefone" : null,
+          "curriculumLates" : "https://www.google.com"
+        }
+      },
+      "data": 1514131097
+    }]
+  })
+});
+
+router.get('/finaltests/:finaltestsId', function(req, res, next) {
+  res.json({
+    error: false,
+    response: {
+      "id" : "5a3fcfb927433010741caba0",
+      "disciplina" : {
+        "id" : "5a3fcbb427433010741cab9d",
+        "nome" : "compiladores",
+        "optativa" : false,
+        "professor" : {
+          "id" : "5a39d1a6196a8e41f0857f75",
+          "nome" : "antonio atta fontes",
+          "apelidos" : [
+            "atta",
+            "darth vader"
+          ],
+          "email" : "atta@uneb.br",
+          "tefone" : null,
+          "curriculumLates" : "https://www.google.com"
+        }
+      },
+      "data": 1514131097
+    }
+  })
+});
 
 
 
@@ -108,9 +349,5 @@ router.delete('/', function(req, res, next) {
 router.put('/', function(req, res, next) {
   res.json({ message: 'api call put' });
 });
-
-
-
-
 
 module.exports = router;
