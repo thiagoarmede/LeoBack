@@ -1,10 +1,32 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET requests*/
-router.get('/', function(req, res, next) {
-  res.json({ message: 'api call get' });
+
+router.get('/users/', function(req, res, next) {
+  res.json({
+    error: false,
+    response: [{
+      "id" : "5a3fc94d27433010741cab99",
+      "username" : "year_2028",
+      "nome" : "kevin oliveira",
+      "dataCriacao" : 1514129680.0
+    }]
+  });
 });
+
+
+router.get('/users/:userId', function(req, res, next) {
+  res.json({
+    error: false,
+    response: {
+      "id" : "5a3fc94d27433010741cab99",
+      "username" : "year_2028",
+      "nome" : "kevin oliveira",
+      "dataCriacao" : 1514129680.0
+    }
+  });
+});
+
 
 
 router.get('/groups', function(req, res, next) {
@@ -333,21 +355,19 @@ router.get('/finaltests/:finaltestsId', function(req, res, next) {
   })
 });
 
-
-
-/* post home page. */
-router.post('/', function(req, res, next) {
-  res.json({ message: 'api call post' });
+// for creations
+router.post('/users/', function(req, res, next) {
+  res.status(201)
+  res.json({
+    error: false,
+    response: {
+      "id" : "5a3fc94d27433010741cab99",
+      "username" : "year_2028",
+      "nome" : "kevin oliveira",
+      "dataCriacao" : 1514129680.0
+    }
+  });
 });
 
-/* delete home page. */
-router.delete('/', function(req, res, next) {
-  res.json({ message: 'api call delete' });
-});
-
-/* put home page. */
-router.put('/', function(req, res, next) {
-  res.json({ message: 'api call put' });
-});
 
 module.exports = router;
