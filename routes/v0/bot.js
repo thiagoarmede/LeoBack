@@ -2,6 +2,31 @@ var express = require('express');
 var router = express.Router();
 
 
+
+router.get('/kitten', function (req, res, next){
+  let kittens = [];
+  req.app.locals.models.kittens.find(function (err, DBkittens){
+    kittens = DBkittens;
+  }).then(something => {
+    console.log(something);
+    res.json({ok: true, response: kittens});
+  }).catch(err=>{
+    res.json({ok: false, message: err.message});
+  })
+});
+
+router.get('/kitten/:kittenName', function(req, res, next){
+
+  let myData = new req.app.locals.models.kittens({name: req.params.kittenName});
+  myData.save().then(item =>{
+    res.json({ok: true, name: req.params.kittenName});
+  }).catch(err =>{
+    res.json({ok: false, message: err.message});
+  })
+})
+
+
+
 router.get('/users/', function(req, res, next) {
   res.json({
     error: false,
@@ -14,7 +39,6 @@ router.get('/users/', function(req, res, next) {
   });
 });
 
-
 router.get('/users/:userId', function(req, res, next) {
   res.json({
     error: false,
@@ -26,7 +50,6 @@ router.get('/users/:userId', function(req, res, next) {
     }
   });
 });
-
 
 
 router.get('/groups', function(req, res, next) {
