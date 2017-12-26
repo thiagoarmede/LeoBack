@@ -28,369 +28,239 @@ var router = express.Router();
 
 
 router.get('/users/', function(req, res, next) {
-  res.json({
-    error: false,
-    response: [{
-      "id" : "5a3fc94d27433010741cab99",
-      "username" : "year_2028",
-      "nome" : "kevin oliveira",
-      "dataCriacao" : 1514129680.0
-    }]
+  req.app.locals.models.users.find(function (err, DBusers){
+  }).then(users => {
+    // console.log(users);
+    res.json({ok: true, response: users});
+  }).catch(err => {
+    res.json({ok: false, message: err.message});
   });
 });
 
 router.get('/users/:userId', function(req, res, next) {
-  res.json({
-    error: false,
-    response: {
-      "id" : "5a3fc94d27433010741cab99",
-      "username" : "year_2028",
-      "nome" : "kevin oliveira",
-      "dataCriacao" : 1514129680.0
-    }
-  });
+  req.app.locals.models.users.findOne({_id: req.params.userId},(err,DBuser)=>{
+    // nothing
+  }).then(user=>{
+    res.json({ok: true, response: user});
+  }).catch(err=>{
+    res.json({ok: false, message: err.message});
+  })
 });
 
 
 router.get('/groups', function(req, res, next) {
-  res.json({
-    error: false,
-    response:[{
-      "id" : "5a3fbe7127433010741cab97",
-      "nome" : "Economia 101",
-      "descricao" : "lets go play with the market",
-      "inviteLink" : "http://join.me/economy101",
-      "grupoDeDisciplina" : true
-    }]
-  })
+  req.app.locals.models.groups.find(function (err, DBGroups){
+  }).then(groups => {
+    // console.log(groups);
+    res.json({ok: true, response: groups});
+  }).catch(err => {
+    res.json({ok: false, message: err.message});
+  });
 });
 
 router.get('/groups/:groupId', function(req, res, next) {
-  res.json({
-    error: false,
-    response: {
-      "id" : "5a3fbe7127433010741cab97",
-      "nome" : "Economia 101",
-      "descricao" : "lets go play with the market",
-      "inviteLink" : "http://join.me/economy101",
-      "grupoDeDisciplina" : true
-    }
+  req.app.locals.models.groups.findOne({_id: req.params.groupId},(err,DBgroup)=>{
+    // nothing
+  }).then(group=>{
+    res.json({ok: true, response: group});
+  }).catch(err=>{
+    res.json({ok: false, message: err.message});
   })
 });
 
 
 router.get('/tests/', function(req, res, next) {
-  res.json({
-    error: false,
-    response: [{
-      "id" : "5a3fcebc27433010741cab9f",
-      "disciplina" : "5a3fcbb427433010741cab9d",
-      "nome" : "trabalho pratico 1",
-      "valor" : 10.0,
-      "descricao" : "trabalho pratico, amostra do nivel lexico",
-      "dataInicio" : 1514131097.0,
-      "dataFinal" : null
-    }]
-  })
+  req.app.locals.models.tests.find(function (err, DBTests){
+  }).then(tests => {
+    // console.log(tests);
+    res.json({ok: true, response: tests});
+  }).catch(err => {
+    res.json({ok: false, message: err.message});
+  });
 });
 
 router.get('/tests/:testId', function(req, res, next) {
-  res.json({
-    error: false,
-    response: {
-      "id" : "5a3fcebc27433010741cab9f",
-      "disciplina" : "5a3fcbb427433010741cab9d",
-      "nome" : "trabalho pratico 1",
-      "valor" : 10.0,
-      "descricao" : "trabalho pratico, amostra do nivel lexico",
-      "dataInicio" : 1514131097.0,
-      "dataFinal" : null
-    }
+  req.app.locals.models.tests.findOne({_id: req.params.testId},(err,DBTests)=>{
+    // nothing
+  }).then(tests=>{
+    res.json({ok: true, response: tests});
+  }).catch(err=>{
+    res.json({ok: false, message: err.message});
   })
 });
 
 
 router.get('/announcements/', function(req, res, next) {
-  res.json({
-    error: false,
-    response: [{
-      "id" : "5a3fb3fe27433010741cab95",
-      "titulo" : "Greve geral",
-      "mensagem" : "uneb de portões fechados entre dia 22 e dia 31, não venham pra aula.",
-      "link" : "http://www.sitedagreve.com.br"
-    }]
-  })
+  req.app.locals.models.announcements.find(function (err, DBAnnouncements){
+  }).then(announcements => {
+    // console.log(tests);
+    res.json({ok: true, response: announcements});
+  }).catch(err => {
+    res.json({ok: false, message: err.message});
+  });
 });
 
 router.get('/announcements/:announcementsId', function(req, res, next) {
-  res.json({
-    error: false,
-    response: {
-      "id" : "5a3fb3fe27433010741cab95",
-      "titulo" : "Greve geral",
-      "mensagem" : "uneb de portões fechados entre dia 22 e dia 31, não venham pra aula.",
-      "link" : "http://www.sitedagreve.com.br"
-    }
+  req.app.locals.models.announcements.findOne({_id: req.params.announcementsId},(err,DBAnnouncements)=>{
+    // nothing
+  }).then(announcements=>{
+    res.json({ok: true, response: announcements});
+  }).catch(err=>{
+    res.json({ok: false, message: err.message});
   })
 });
 
 
 router.get('/classes/', function(req, res, next) {
-  res.json({
-    error: false,
-    response: [{
-      "id" : "5a3fcbb427433010741cab9d",
-      "nome" : "compiladores",
-      "optativa" : false,
-      "professor" : {
-        "id" : "5a39d1a6196a8e41f0857f75",
-        "nome" : "antonio atta fontes",
-        "apelidos" : [
-          "atta",
-          "darth vader"
-        ],
-        "email" : "atta@uneb.br",
-        "tefone" : null,
-        "curriculumLates" : "https://www.google.com"
-      }
-    }]
-  })
+  req.app.locals.models.classes.find(function (err, DBclasses){
+  }).then(classes => {
+    // console.log(tests);
+    res.json({ok: true, response: classes});
+  }).catch(err => {
+    res.json({ok: false, message: err.message});
+  });
 });
 
 router.get('/classes/:classesId', function(req, res, next) {
-  res.json({
-    error: false,
-    response: {
-      "id" : "5a3fcbb427433010741cab9d",
-      "nome" : "compiladores",
-      "optativa" : false,
-      "professor" : {
-        "id" : "5a39d1a6196a8e41f0857f75",
-        "nome" : "antonio atta fontes",
-        "apelidos" : [
-          "atta",
-          "darth vader"
-        ],
-        "email" : "atta@uneb.br",
-        "tefone" : null,
-        "curriculumLates" : "https://www.google.com"
-      }
-    }
+  req.app.locals.models.classes.findOne({_id: req.params.classesId},(err,DBclasses)=>{
+    // nothing
+  }).then(classes=>{
+    res.json({ok: true, response: classes});
+  }).catch(err=>{
+    res.json({ok: false, message: err.message});
   })
 });
 
 
 router.get('/events/', function(req, res, next) {
-  res.json({
-    error: false,
-    response: [{
-      "id" : "5a3fb20427433010741cab8f",
-      "nome" : "evento",
-      "descricao" : "bla bla bla bla bla bla bla",
-      "pago" : true,
-      "dataInicio" : "2015-10-26T07:46:36.611Z",
-      "dataFinal" : "2015-10-26T07:46:36.611Z",
-      "linkInfo" : "http://www.google.com"
-    }]
-  })
+  req.app.locals.models.events.find(function (err, DBevents){
+  }).then(events => {
+    // console.log(tests);
+    res.json({ok: true, response: events});
+  }).catch(err => {
+    res.json({ok: false, message: err.message});
+  });
 });
 
 router.get('/events/:eventsId', function(req, res, next) {
-  res.json({
-    error: false,
-    response: {
-      "id" : "5a3fb20427433010741cab8f",
-      "nome" : "evento",
-      "descricao" : "bla bla bla bla bla bla bla",
-      "pago" : true,
-      "dataInicio" : "2015-10-26T07:46:36.611Z",
-      "dataFinal" : "2015-10-26T07:46:36.611Z",
-      "linkInfo" : "http://www.google.com"
-    }
+  req.app.locals.models.events.findOne({_id: req.params.eventsId},(err,DBevents)=>{
+    // nothing
+  }).then(events=>{
+    res.json({ok: true, response: events});
+  }).catch(err=>{
+    res.json({ok: false, message: err.message});
   })
 });
 
 
 router.get('/info/', function(req, res, next) {
-  res.json({
-    error: false,
-    response: [{
-      "id" : "5a3fb2ed27433010741cab92",
-      "nome" : "proposta de horario proximo semestre",
-      "descricao" : "bla bla bla bla bla bla bla bla bla bla bla bla bla bla",
-      "link" : "http://www.google.com"
-    }]
-  })
+  req.app.locals.models.info.find(function (err, DBinfo){
+  }).then(info => {
+    // console.log(tests);
+    res.json({ok: true, response: info});
+  }).catch(err => {
+    res.json({ok: false, message: err.message});
+  });
 });
 
 router.get('/info/:infoId', function(req, res, next) {
-  res.json({
-    error: false,
-    response: {
-      "id" : "5a3fb2ed27433010741cab92",
-      "nome" : "proposta de horario proximo semestre",
-      "descricao" : "bla bla bla bla bla bla bla bla bla bla bla bla bla bla",
-      "link" : "http://www.google.com"
-    }
+  req.app.locals.models.info.findOne({_id: req.params.infoId},(err,DBinfo)=>{
+    // nothing
+  }).then(info=>{
+    res.json({ok: true, response: info});
+  }).catch(err=>{
+    res.json({ok: false, message: err.message});
   })
 });
 
 
 router.get('/teachers/', function(req, res, next) {
-  res.json({
-    error: false,
-    response: [{
-        "id" : "5a39d1a6196a8e41f0857f75",
-        "nome" : "antonio atta fontes",
-        "apelidos" : [
-          "atta",
-          "darth vader"
-        ],
-        "email" : "atta@uneb.br",
-        "tefone" : null,
-        "curriculumLates" : "https://www.google.com"
-      }]
-  })
+  req.app.locals.models.teachers.find(function (err, DBteachers){
+  }).then(teachers => {
+    // console.log(tests);
+    res.json({ok: true, response: teachers});
+  }).catch(err => {
+    res.json({ok: false, message: err.message});
+  });
 });
 
 router.get('/teachers/:teachersId', function(req, res, next) {
-  res.json({
-    error: false,
-    response: {
-        "id" : "5a39d1a6196a8e41f0857f75",
-        "nome" : "antonio atta fontes",
-        "apelidos" : [
-          "atta",
-          "darth vader"
-        ],
-        "email" : "atta@uneb.br",
-        "tefone" : null,
-        "curriculumLates" : "https://www.google.com"
-      }
+  req.app.locals.models.teachers.findOne({_id: req.params.teachersId},(err,DBteachers)=>{
+    // nothing
+  }).then(teachers=>{
+    res.json({ok: true, response: teachers});
+  }).catch(err=>{
+    res.json({ok: false, message: err.message});
   })
 });
 
 
 router.get('/oldtests/', function(req, res, next) {
-  res.json({
-    error: false,
-    response: [{
-      "id" : "5a3fcd3c27433010741cab9e",
-      "disciplina" : {
-        "id" : "5a3fcbb427433010741cab9d",
-        "nome" : "compiladores",
-        "optativa" : false,
-        "professor" : {
-          "id" : "5a39d1a6196a8e41f0857f75",
-          "nome" : "antonio atta fontes",
-          "apelidos" : [
-            "atta",
-            "darth vader"
-          ],
-          "email" : "atta@uneb.br",
-          "tefone" : null,
-          "curriculumLates" : "https://www.google.com"
-        }
-      },
-      "ano" : 2017.0,
-      "linkPdf" : "http://www.gdrive.com/si/compiladores/2017/prova1"
-    }]
-  })
+  req.app.locals.models.oldtests.find(function (err, DBoldtests){
+  }).then(oldtests => {
+    // console.log(tests);
+    res.json({ok: true, response: oldtests});
+  }).catch(err => {
+    res.json({ok: false, message: err.message});
+  });
 });
 
 router.get('/oldtests/:oldtestsId', function(req, res, next) {
-  res.json({
-    error: false,
-    response: {
-      "id" : "5a3fcd3c27433010741cab9e",
-      "disciplina" : {
-        "id" : "5a3fcbb427433010741cab9d",
-        "nome" : "compiladores",
-        "optativa" : false,
-        "professor" : {
-          "id" : "5a39d1a6196a8e41f0857f75",
-          "nome" : "antonio atta fontes",
-          "apelidos" : [
-            "atta",
-            "darth vader"
-          ],
-          "email" : "atta@uneb.br",
-          "tefone" : null,
-          "curriculumLates" : "https://www.google.com"
-        }
-      },
-      "ano" : 2017.0,
-      "linkPdf" : "http://www.gdrive.com/si/compiladores/2017/prova1"
-    }
+  req.app.locals.models.oldtests.findOne({_id: req.params.oldtestsId},(err,DBoldtests)=>{
+    // nothing
+  }).then(oldtests=>{
+    res.json({ok: true, response: oldtests});
+  }).catch(err=>{
+    res.json({ok: false, message: err.message});
   })
 });
 
 
 router.get('/finaltests/', function(req, res, next) {
-  res.json({
-    error: false,
-    response: [{
-      "id" : "5a3fcfb927433010741caba0",
-      "disciplina" : {
-        "id" : "5a3fcbb427433010741cab9d",
-        "nome" : "compiladores",
-        "optativa" : false,
-        "professor" : {
-          "id" : "5a39d1a6196a8e41f0857f75",
-          "nome" : "antonio atta fontes",
-          "apelidos" : [
-            "atta",
-            "darth vader"
-          ],
-          "email" : "atta@uneb.br",
-          "tefone" : null,
-          "curriculumLates" : "https://www.google.com"
-        }
-      },
-      "data": 1514131097
-    }]
-  })
+  req.app.locals.models.finaltests.find(function (err, DBfinaltests){
+  }).then(finaltests => {
+    // console.log(tests);
+    res.json({ok: true, response: finaltests});
+  }).catch(err => {
+    res.json({ok: false, message: err.message});
+  });
 });
 
 router.get('/finaltests/:finaltestsId', function(req, res, next) {
-  res.json({
-    error: false,
-    response: {
-      "id" : "5a3fcfb927433010741caba0",
-      "disciplina" : {
-        "id" : "5a3fcbb427433010741cab9d",
-        "nome" : "compiladores",
-        "optativa" : false,
-        "professor" : {
-          "id" : "5a39d1a6196a8e41f0857f75",
-          "nome" : "antonio atta fontes",
-          "apelidos" : [
-            "atta",
-            "darth vader"
-          ],
-          "email" : "atta@uneb.br",
-          "tefone" : null,
-          "curriculumLates" : "https://www.google.com"
-        }
-      },
-      "data": 1514131097
-    }
+  req.app.locals.models.finaltests.findOne({_id: req.params.finaltestsId},(err,DBfinaltests)=>{
+    // nothing
+  }).then(finaltests=>{
+    res.json({ok: true, response: finaltests});
+  }).catch(err=>{
+    res.json({ok: false, message: err.message});
   })
 });
 
 // for creations
-router.post('/users/', function(req, res, next) {
-  res.status(201)
-  res.json({
-    error: false,
-    response: {
-      "id" : "5a3fc94d27433010741cab99",
-      "username" : "year_2028",
-      "nome" : "kevin oliveira",
-      "dataCriacao" : 1514129680.0
-    }
-  });
-});
+router.post('/users', (req, res, next)=>{
+  if( req.is('application/json') ){
+
+    let newFinalTest = new req.app.locals.models.users(
+      {
+        userName: req.body.userName,
+        telegramHash: req.body.telegramHash,
+        name: req.body.name,
+        createdAt: req.body.createdAt,
+      }
+    );
+
+    newFinalTest.save().then(item=>{
+      res.status(201).json({ok: true, id: item.id});
+    }).catch(err =>{
+      res.json({ok: false, message: err.message});
+    })
+    
+
+  }else{
+    res.status(400).json({ok: false, message: "invalid body content type"});
+  }
+
+})
 
 
 module.exports = router;
