@@ -12,10 +12,10 @@ router.post('/teachers', (req, res, next)=>{
 
     let newTeacher = new req.app.locals.models.teachers(
       {
-        nome : req.body.nome,
-        apelidos : req.body.apelidos,
+        name : req.body.name,
+        nicknames : req.body.nicknames,
         email : req.body.email,
-        telefone : req.body.telefone,
+        phone : req.body.phone,
         curriculumLates : req.body.curriculumLates
       }
     );
@@ -23,7 +23,7 @@ router.post('/teachers', (req, res, next)=>{
     newTeacher.save().then(item=>{
       res.status(201).json({ok: true, id: item.id});
     }).catch(err =>{
-      res.json({ok: false});
+      res.json({ok: false, message: err.message});
     })
     
 
