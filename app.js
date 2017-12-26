@@ -16,35 +16,6 @@ DB.connect();
 app.locals.models = DB.models;
 
 
-// var brandNewSchema =  mongoose.Schema({
-//     name: String,
-// });
-
-// var testsSchema = mongoose.Schema({
-//   id: String,
-//   disciplina : String,
-//   nome : String,
-//   valor : Number,
-//   descricao : String,
-//   dataInicio : Number,
-//   dataFinal : Number
-// })
-// app.locals.testsModel = mongoose.model('avaliacoes', testsSchema);
-
-// app.locals.kittenModel = mongoose.model('Kitten', brandNewSchema);
-
-
-
-
-// var kitten = mongoose.model('Kitten', brandNewSchema);
-// var silence = new kitten({name: 'Silence'});
-// console.log(silence.name);
-// silence.save();
-
-
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

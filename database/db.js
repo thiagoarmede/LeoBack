@@ -1,23 +1,22 @@
+// import { Schema } from 'mongoose';
+
 
 var mongoose = require('mongoose');
 
 
 
-
-// app.locals.kittenSchama = mongoose.Schema({
-//   name: String,
-// },{
-//   versionKey: false
-// });
-
 var createDataBaseConnection = ()=>{
 
   mongoose.connect('mongodb://localhost:27017/Leonardo');
+
   var db = mongoose.connection;
+
   db.on('error', console.error.bind(console,'connection error:'));
+
   db.once('open', function(){
-    console.log("Here we are!");
+    console.log("Connected to database!");
   });
+
 }
 
 var Schemas = {
@@ -32,22 +31,31 @@ var Schemas = {
   }),
   kittens: mongoose.Schema({
     name: String,
-})
+  }),
+  teachers: mongoose.Schema({
+    nome: String,
+    apelidos: Array,
+    email: String,
+    telefone: String,
+    curriculumLates: String,
+  }),
 }
 
 var ColectionsNames ={
   tests: 'avaliacoes',
-  kittens: 'kittens'
+  kittens: 'kittens',
+  teachers: 'professors',
 }
 
 var Models = {
   tests: mongoose.model(ColectionsNames.tests, Schemas.tests),
-  kittens: mongoose.model(ColectionsNames.kittens, Schemas.kittens)
+  kittens: mongoose.model(ColectionsNames.kittens, Schemas.kittens),
+  teachers: mongoose.model(ColectionsNames.teachers, Schemas.teachers),
 }
 
 
 module.exports = {
   connect: createDataBaseConnection,
-  models: Models
+  models: Models,
 }
 
