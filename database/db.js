@@ -21,13 +21,12 @@ var createDataBaseConnection = ()=>{
 
 var Schemas = {
   tests: mongoose.Schema({
-    id: String,
-    disciplina : String,
-    nome : String,
-    valor : Number,
-    descricao : String,
-    dataInicio : Number,
-    dataFinal : Number
+    class : String,
+    name : String,
+    value : Number,
+    description : String,
+    startDate : Date,
+    endDate : Date
   }),
 
   // kittens: mongoose.Schema({
@@ -35,12 +34,71 @@ var Schemas = {
   // }),
 
   teachers: mongoose.Schema({
-    nome: String,
-    apelidos: Array,
+    name: String,
+    nicknames: Array,
     email: String,
-    telefone: String,
+    phone: String,
     curriculumLates: String,
   }),
+
+  announcements: mongoose.Schema({
+    title: String,
+    message: String,
+    link: String,
+    data: Date,
+  }),
+
+  classes: mongoose.Schema({
+    name: String,
+    optional: Boolean,
+    teacher: String,
+  }),
+
+  events: mongoose.Schema({
+    name: String,
+    description: String,
+    paid: Boolean,
+    startDate: Date,
+    endDate: Date,
+    link: String,
+  }),
+
+  groups: mongoose.Schema({
+    name: String,
+    description: String,
+    inviteLink: String,
+    classGroup: Boolean,
+  }),
+
+  info: mongoose.Schema({
+    name: String,
+    description: String,
+    link: String,
+  }),
+
+  message: mongoose.Schema({
+    user: String,
+    date: Date,
+    message: String,
+  }),
+
+  oldtests: mongoose.Schema({
+    class: String,
+    year: Number,
+    link: String,
+  }),
+
+  finaltests: mongoose.Schema({
+    class: String,
+    date: Date,
+  }),
+
+  users: mongoose.Schema({
+    userName: String,
+    telegramHash: String,
+    name: String,
+    createdAt: Date,
+  })
 
 
 }
@@ -57,6 +115,7 @@ var ColectionsNames ={
   info: 'info',
   oldtests: 'oldtests',
   finaltests: 'finaltests',
+  message: 'messages',
 }
 
 var Models = {
@@ -70,7 +129,8 @@ var Models = {
   info: mongoose.model(ColectionsNames.info, Schemas.info),
   oldtests: mongoose.model(ColectionsNames.oldtests, Schemas.oldtests),
   finaltests: mongoose.model(ColectionsNames.finaltests, Schemas.finaltests),
-
+  message: mongoose.model(ColectionsNames.message, Schemas.message),
+  
   // tests: mongoose.model(ColectionsNames.tests, Schemas.tests),
   // // kittens: mongoose.model(ColectionsNames.kittens, Schemas.kittens),
   // teachers: mongoose.model(ColectionsNames.teachers, Schemas.teachers),
