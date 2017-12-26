@@ -3,27 +3,27 @@ var router = express.Router();
 
 
 
-router.get('/kitten', function (req, res, next){
-  let kittens = [];
-  req.app.locals.models.kittens.find(function (err, DBkittens){
-    kittens = DBkittens;
-  }).then(something => {
-    console.log(something);
-    res.json({ok: true, response: kittens});
-  }).catch(err=>{
-    res.json({ok: false, message: err.message});
-  })
-});
+// router.get('/kitten', function (req, res, next){
+//   let kittens = [];
+//   req.app.locals.models.kittens.find(function (err, DBkittens){
+//     kittens = DBkittens;
+//   }).then(something => {
+//     console.log(something);
+//     res.json({ok: true, response: kittens});
+//   }).catch(err=>{
+//     res.json({ok: false, message: err.message});
+//   })
+// });
 
-router.get('/kitten/:kittenName', function(req, res, next){
+// router.get('/kitten/:kittenName', function(req, res, next){
 
-  let myData = new req.app.locals.models.kittens({name: req.params.kittenName});
-  myData.save().then(item =>{
-    res.json({ok: true, name: req.params.kittenName});
-  }).catch(err =>{
-    res.json({ok: false, message: err.message});
-  })
-})
+//   let myData = new req.app.locals.models.kittens({name: req.params.kittenName});
+//   myData.save().then(item =>{
+//     res.json({ok: true, name: req.params.kittenName});
+//   }).catch(err =>{
+//     res.json({ok: false, message: err.message});
+//   })
+// })
 
 
 
