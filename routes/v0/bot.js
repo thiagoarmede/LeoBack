@@ -194,6 +194,16 @@ router.get('/teachers/:teachersId', function(req, res, next) {
   })
 });
 
+router.get('/oldtests/:class', function(req, res, next) {
+  req.app.locals.models.oldtests.findOne({'class': new RegExpr('^'+req.params.class, 'i')},(err,DBoldtests)=>{
+    // nothing
+  }).then(oldtests=>{
+    res.json({ok: true, response: oldtests});
+    console.log(oldstests)
+  }).catch(err=>{
+    res.json({ok: false, message: err.message});
+  })
+});
 
 router.get('/oldtests/', function(req, res, next) {
   req.app.locals.models.oldtests.find(function (err, DBoldtests){
@@ -214,7 +224,6 @@ router.get('/oldtests/:oldtestsId', function(req, res, next) {
     res.json({ok: false, message: err.message});
   })
 });
-
 
 router.get('/finaltests/', function(req, res, next) {
   req.app.locals.models.finaltests.find(function (err, DBfinaltests){
@@ -254,7 +263,7 @@ router.post('/users', (req, res, next)=>{
     }).catch(err =>{
       res.json({ok: false, message: err.message});
     })
-    
+
 
   }else{
     res.status(400).json({ok: false, message: "invalid body content type"});
