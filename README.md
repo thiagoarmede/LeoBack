@@ -2,6 +2,16 @@
 
 Esse Back-end é utilizado para prover uma api para o [Bot](https://github.com/UNEB-SI/LeoBot) e para o [Dashboard](https://github.com/UNEB-SI/LeoDash)
 
+## arquivo de configuração
+o arquivo de configuração deve ficarm no seguinte caminho `others/config.js`
+
+eis a composição do arquivo
+```
+module.exports = {
+    databaseURI: 'mongodb://username:password@host:port/database',
+}
+```
+
 
 ### Ambiente de desenvolvimento
 * [VScode](https://github.com/Microsoft/vscode)  Visual Studio Code 
