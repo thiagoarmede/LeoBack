@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 
 var createDataBaseConnection = ()=>{
 
-  mongoose.connect(configo.databaseURI);
+  mongoose.connect(config.databaseURI);
 
   var db = mongoose.connection;
 
