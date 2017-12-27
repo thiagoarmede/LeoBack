@@ -1,13 +1,11 @@
-// import { Schema } from 'mongoose';
-
-
+var config = require('../others/config');
 var mongoose = require('mongoose');
 
 
 
 var createDataBaseConnection = ()=>{
 
-  mongoose.connect('mongodb://localhost:27017/Leonardo');
+  mongoose.connect(configo.databaseURI);
 
   var db = mongoose.connection;
 
