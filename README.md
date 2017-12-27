@@ -9,6 +9,7 @@ eis a composição do arquivo
 ```
 module.exports = {
     databaseURI: 'mongodb://username:password@host:port/database',
+    apiPort: '80'
 }
 ```
 
