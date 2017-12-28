@@ -32,8 +32,10 @@ router.get('/users/', function(req, res, next) {
   }).then(users => {
     // console.log(users);
     res.json({ok: true, response: users});
+    return;
   }).catch(err => {
     res.json({ok: false, message: err.message});
+    return;
   });
 });
 
@@ -42,8 +44,10 @@ router.get('/users/:userId', function(req, res, next) {
     // nothing
   }).then(user=>{
     res.json({ok: true, response: user});
+    return;
   }).catch(err=>{
     res.json({ok: false, message: err.message});
+    return;
   })
 });
 
@@ -53,8 +57,10 @@ router.get('/groups', function(req, res, next) {
   }).then(groups => {
     // console.log(groups);
     res.json({ok: true, response: groups});
+    return;
   }).catch(err => {
     res.json({ok: false, message: err.message});
+    return;
   });
 });
 
@@ -63,8 +69,10 @@ router.get('/groups/:groupId', function(req, res, next) {
     // nothing
   }).then(group=>{
     res.json({ok: true, response: group});
+    return;
   }).catch(err=>{
     res.json({ok: false, message: err.message});
+    return;
   })
 });
 
@@ -74,8 +82,10 @@ router.get('/tests/', function(req, res, next) {
   }).then(tests => {
     // console.log(tests);
     res.json({ok: true, response: tests});
+    return;
   }).catch(err => {
     res.json({ok: false, message: err.message});
+    return;
   });
 });
 
@@ -84,8 +94,10 @@ router.get('/tests/:testId', function(req, res, next) {
     // nothing
   }).then(tests=>{
     res.json({ok: true, response: tests});
+    return;
   }).catch(err=>{
     res.json({ok: false, message: err.message});
+    return;
   })
 });
 
@@ -95,8 +107,10 @@ router.get('/announcements/', function(req, res, next) {
   }).then(announcements => {
     // console.log(tests);
     res.json({ok: true, response: announcements});
+    return;
   }).catch(err => {
     res.json({ok: false, message: err.message});
+    return;
   });
 });
 
@@ -105,8 +119,10 @@ router.get('/announcements/:announcementsId', function(req, res, next) {
     // nothing
   }).then(announcements=>{
     res.json({ok: true, response: announcements});
+    return;
   }).catch(err=>{
     res.json({ok: false, message: err.message});
+    return;
   })
 });
 
@@ -116,8 +132,10 @@ router.get('/classes/', function(req, res, next) {
   }).then(classes => {
     // console.log(tests);
     res.json({ok: true, response: classes});
+    return;
   }).catch(err => {
     res.json({ok: false, message: err.message});
+    return;
   });
 });
 
@@ -126,8 +144,10 @@ router.get('/classes/:classesId', function(req, res, next) {
     // nothing
   }).then(classes=>{
     res.json({ok: true, response: classes});
+    return;
   }).catch(err=>{
     res.json({ok: false, message: err.message});
+    return;
   })
 });
 
@@ -137,8 +157,10 @@ router.get('/events/', function(req, res, next) {
   }).then(events => {
     // console.log(tests);
     res.json({ok: true, response: events});
+    return;
   }).catch(err => {
     res.json({ok: false, message: err.message});
+    return;
   });
 });
 
@@ -147,8 +169,10 @@ router.get('/events/:eventsId', function(req, res, next) {
     // nothing
   }).then(events=>{
     res.json({ok: true, response: events});
+    return;
   }).catch(err=>{
     res.json({ok: false, message: err.message});
+    return;
   })
 });
 
@@ -158,8 +182,10 @@ router.get('/info/', function(req, res, next) {
   }).then(info => {
     // console.log(tests);
     res.json({ok: true, response: info});
+    return;
   }).catch(err => {
     res.json({ok: false, message: err.message});
+    return;
   });
 });
 
@@ -168,8 +194,10 @@ router.get('/info/:infoId', function(req, res, next) {
     // nothing
   }).then(info=>{
     res.json({ok: true, response: info});
+    return;
   }).catch(err=>{
     res.json({ok: false, message: err.message});
+    return;
   })
 });
 
@@ -179,8 +207,10 @@ router.get('/teachers/', function(req, res, next) {
   }).then(teachers => {
     // console.log(tests);
     res.json({ok: true, response: teachers});
+    return;
   }).catch(err => {
     res.json({ok: false, message: err.message});
+    return;
   });
 });
 
@@ -189,19 +219,22 @@ router.get('/teachers/:teachersId', function(req, res, next) {
     // nothing
   }).then(teachers=>{
     res.json({ok: true, response: teachers});
+    return;
   }).catch(err=>{
     res.json({ok: false, message: err.message});
+    return;
   })
 });
 
-router.get('/oldtests/:class', function(req, res, next) {
-  req.app.locals.models.oldtests.findOne({'class': new RegExpr('^'+req.params.class, 'i')},(err,DBoldtests)=>{
+router.get('/find/oldtests/:class', function(req, res, next) {
+  req.app.locals.models.oldtests.findOne({'class': new RegExp('^'+req.params.class, 'i')},(err,DBoldtests)=>{
     // nothing
-  }).then(oldtests=>{
+  }).then(oldtests=>{    
     res.json({ok: true, response: oldtests});
-    console.log(oldstests)
+    return;
   }).catch(err=>{
     res.json({ok: false, message: err.message});
+    return;
   })
 });
 
@@ -210,8 +243,10 @@ router.get('/oldtests/', function(req, res, next) {
   }).then(oldtests => {
     // console.log(tests);
     res.json({ok: true, response: oldtests});
+    return;
   }).catch(err => {
     res.json({ok: false, message: err.message});
+    return;
   });
 });
 
@@ -220,8 +255,10 @@ router.get('/oldtests/:oldtestsId', function(req, res, next) {
     // nothing
   }).then(oldtests=>{
     res.json({ok: true, response: oldtests});
+    return;
   }).catch(err=>{
     res.json({ok: false, message: err.message});
+    return;
   })
 });
 
@@ -230,8 +267,10 @@ router.get('/finaltests/', function(req, res, next) {
   }).then(finaltests => {
     // console.log(tests);
     res.json({ok: true, response: finaltests});
+    return;
   }).catch(err => {
     res.json({ok: false, message: err.message});
+    return;
   });
 });
 
@@ -240,8 +279,10 @@ router.get('/finaltests/:finaltestsId', function(req, res, next) {
     // nothing
   }).then(finaltests=>{
     res.json({ok: true, response: finaltests});
+    return;
   }).catch(err=>{
     res.json({ok: false, message: err.message});
+    return;
   })
 });
 
@@ -260,13 +301,16 @@ router.post('/users', (req, res, next)=>{
 
     newFinalTest.save().then(item=>{
       res.status(201).json({ok: true, id: item.id});
+      return;
     }).catch(err =>{
       res.json({ok: false, message: err.message});
+      return;
     })
 
 
   }else{
     res.status(400).json({ok: false, message: "invalid body content type"});
+    return;
   }
 
 })
