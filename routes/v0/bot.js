@@ -226,8 +226,8 @@ router.get('/teachers/:teachersId', function(req, res, next) {
   })
 });
 
-router.get('/find/oldtests/:class', function(req, res, next) {
-  req.app.locals.models.oldtests.findOne({'class': new RegExp('^'+req.params.class, 'i')},(err,DBoldtests)=>{
+router.get('/find/oldtests/', function(req, res, next) {
+  req.app.locals.models.oldtests.findOne({'class': new RegExp('^'+req.query.class, 'i')},(err,DBoldtests)=>{
     // nothing
   }).then(oldtests=>{    
     res.json({ok: true, response: oldtests});
