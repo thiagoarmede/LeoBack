@@ -5,6 +5,7 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.status(500).json({ error: 'Fatal error' });
+  return;
 });
 
 router.post('/teachers', (req, res, next)=>{
@@ -22,13 +23,16 @@ router.post('/teachers', (req, res, next)=>{
 
     newTeacher.save().then(item=>{
       res.status(201).json({ok: true, id: item.id});
+      return;
     }).catch(err =>{
       res.json({ok: false, message: err.message});
+      return;
     })
     
 
   }else{
     res.status(400).json({ok: false, message: "invalid body content type"});
+    return;
   }
 
 })
@@ -49,13 +53,16 @@ router.post('/tests', (req, res, next)=>{
 
     newTest.save().then(item=>{
       res.status(201).json({ok: true, id: item.id});
+      return;
     }).catch(err =>{
       res.json({ok: false, message: err.message});
+      return;
     })
     
 
   }else{
     res.status(400).json({ok: false, message: "invalid body content type"});
+    return;
   }
 
 })
@@ -74,13 +81,16 @@ router.post('/announcements', (req, res, next)=>{
 
     newAnnouncement.save().then(item=>{
       res.status(201).json({ok: true, id: item.id});
+      return;
     }).catch(err =>{
       res.json({ok: false, message: err.message});
+      return;
     })
     
 
   }else{
     res.status(400).json({ok: false, message: "invalid body content type"});
+    return;
   }
 
 })
@@ -98,13 +108,16 @@ router.post('/classes', (req, res, next)=>{
 
     newClass.save().then(item=>{
       res.status(201).json({ok: true, id: item.id});
+      return;
     }).catch(err =>{
       res.json({ok: false, message: err.message});
+      return;
     })
     
 
   }else{
     res.status(400).json({ok: false, message: "invalid body content type"});
+    return;
   }
 
 })
@@ -125,13 +138,16 @@ router.post('/events', (req, res, next)=>{
 
     newEvent.save().then(item=>{
       res.status(201).json({ok: true, id: item.id});
+      return;
     }).catch(err =>{
       res.json({ok: false, message: err.message});
+      return;
     })
     
 
   }else{
     res.status(400).json({ok: false, message: "invalid body content type"});
+    return;
   }
 
 })
@@ -150,13 +166,16 @@ router.post('/groups', (req, res, next)=>{
 
     newGroup.save().then(item=>{
       res.status(201).json({ok: true, id: item.id});
+      return;
     }).catch(err =>{
       res.json({ok: false, message: err.message});
+      return;
     })
     
 
   }else{
     res.status(400).json({ok: false, message: "invalid body content type"});
+    return;
   }
 
 })
@@ -174,13 +193,16 @@ router.post('/info', (req, res, next)=>{
 
     newInfo.save().then(item=>{
       res.status(201).json({ok: true, id: item.id});
+      return;
     }).catch(err =>{
       res.json({ok: false, message: err.message});
+      return;
     })
     
 
   }else{
     res.status(400).json({ok: false, message: "invalid body content type"});
+    return;
   }
 
 })
@@ -199,13 +221,16 @@ router.post('/message', (req, res, next)=>{
 
     newMessage.save().then(item=>{
       res.status(201).json({ok: true, id: item.id});
+      return;
     }).catch(err =>{
       res.json({ok: false, message: err.message});
+      return;
     })
     
 
   }else{
     res.status(400).json({ok: false, message: "invalid body content type"});
+    return;
   }
 
 })
@@ -224,13 +249,16 @@ router.post('/oldtests', (req, res, next)=>{
 
     newOldTests.save().then(item=>{
       res.status(201).json({ok: true, id: item.id});
+      return;
     }).catch(err =>{
       res.json({ok: false, message: err.message});
+      return;
     })
     
 
   }else{
     res.status(400).json({ok: false, message: "invalid body content type"});
+    return;
   }
 
 })
@@ -247,13 +275,16 @@ router.post('/finaltests', (req, res, next)=>{
 
     newFinalTest.save().then(item=>{
       res.status(201).json({ok: true, id: item.id});
+      return;
     }).catch(err =>{
       res.json({ok: false, message: err.message});
+      return;
     })
     
 
   }else{
     res.status(400).json({ok: false, message: "invalid body content type"});
+    return;
   }
 
 })
@@ -272,13 +303,16 @@ router.post('/users', (req, res, next)=>{
 
     newFinalTest.save().then(item=>{
       res.status(201).json({ok: true, id: item.id});
+      return;
     }).catch(err =>{
       res.json({ok: false, message: err.message});
+      return;
     })
     
 
   }else{
     res.status(400).json({ok: false, message: "invalid body content type"});
+    return;
   }
 
 })
