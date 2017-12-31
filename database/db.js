@@ -1,30 +1,26 @@
-var config = require('../others/config');
-var mongoose = require('mongoose');
+var config = require("../others/config");
+var mongoose = require("mongoose");
 
-
-
-var createDataBaseConnection = ()=>{
-
+var createDataBaseConnection = () => {
   mongoose.connect(config.databaseURI);
 
   var db = mongoose.connection;
 
-  db.on('error', console.error.bind(console,'connection error:'));
+  db.on("error", console.error.bind(console, "connection error:"));
 
-  db.once('open', function(){
+  db.once("open", function() {
     console.log("Connected to database!");
   });
-
-}
+};
 
 var Schemas = {
   tests: mongoose.Schema({
-    class : String,
-    name : String,
-    value : Number,
-    description : String,
-    startDate : Date,
-    endDate : Date
+    class: String,
+    name: String,
+    value: Number,
+    description: String,
+    startDate: Date,
+    endDate: Date
   }),
 
   // kittens: mongoose.Schema({
@@ -36,20 +32,20 @@ var Schemas = {
     nicknames: Array,
     email: String,
     phone: String,
-    curriculumLates: String,
+    curriculumLates: String
   }),
 
   announcements: mongoose.Schema({
     title: String,
     message: String,
     link: String,
-    data: Date,
+    data: Date
   }),
 
   classes: mongoose.Schema({
     name: String,
     optional: Boolean,
-    teacher: String,
+    teacher: String
   }),
 
   events: mongoose.Schema({
@@ -58,85 +54,84 @@ var Schemas = {
     paid: Boolean,
     startDate: Date,
     endDate: Date,
-    link: String,
+    link: String
   }),
 
   groups: mongoose.Schema({
     name: String,
     description: String,
     inviteLink: String,
-    classGroup: Boolean,
+    classGroup: Boolean
   }),
 
   info: mongoose.Schema({
     name: String,
     description: String,
-    link: String,
+    link: String
   }),
 
   message: mongoose.Schema({
     user: String,
     date: Date,
-    message: String,
+    message: String
   }),
 
   oldtests: mongoose.Schema({
     class: String,
     year: Number,
-    link: String,
+    link: String
   }),
 
   finaltests: mongoose.Schema({
     class: String,
-    date: Date,
+    date: Date
   }),
 
   users: mongoose.Schema({
     userName: String,
     telegramHash: String,
     name: String,
-    createdAt: Date,
+    createdAt: Date
   })
+};
 
-
-}
-
-var ColectionsNames ={
-  tests: 'tests',
+var ColectionsNames = {
+  tests: "tests",
   // kittens: 'kittens',
-  teachers: 'teachers',
-  users: 'users',
-  groups: 'groups',
-  announcements: 'announcements',
-  classes: 'classes',
-  events: 'events',
-  info: 'info',
-  oldtests: 'oldtests',
-  finaltests: 'finaltests',
-  message: 'messages',
-}
+  teachers: "teachers",
+  users: "users",
+  groups: "groups",
+  announcements: "announcements",
+  classes: "classes",
+  events: "events",
+  info: "info",
+  oldtests: "oldtests",
+  finaltests: "finaltests",
+  message: "messages"
+};
 
 var Models = {
   tests: mongoose.model(ColectionsNames.tests, Schemas.tests),
   teachers: mongoose.model(ColectionsNames.teachers, Schemas.teachers),
   users: mongoose.model(ColectionsNames.users, Schemas.users),
   groups: mongoose.model(ColectionsNames.groups, Schemas.groups),
-  announcements: mongoose.model(ColectionsNames.announcements, Schemas.announcements),
+  announcements: mongoose.model(
+    ColectionsNames.announcements,
+    Schemas.announcements
+  ),
   classes: mongoose.model(ColectionsNames.classes, Schemas.classes),
   events: mongoose.model(ColectionsNames.events, Schemas.events),
   info: mongoose.model(ColectionsNames.info, Schemas.info),
   oldtests: mongoose.model(ColectionsNames.oldtests, Schemas.oldtests),
   finaltests: mongoose.model(ColectionsNames.finaltests, Schemas.finaltests),
-  message: mongoose.model(ColectionsNames.message, Schemas.message),
-  
+  message: mongoose.model(ColectionsNames.message, Schemas.message)
+
   // tests: mongoose.model(ColectionsNames.tests, Schemas.tests),
   // // kittens: mongoose.model(ColectionsNames.kittens, Schemas.kittens),
   // teachers: mongoose.model(ColectionsNames.teachers, Schemas.teachers),
-}
-
+};
 
 module.exports = {
   connect: createDataBaseConnection,
-  models: Models,
-}
-
+  models: Models
+};
