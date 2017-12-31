@@ -1,3 +1,4 @@
+
 var express = require('express');
 var router = express.Router();
 
@@ -36,6 +37,19 @@ router.post('/teachers', (req, res, next)=>{
   }
 
 })
+
+
+router.get('/teachers/', function(req, res, next) {
+  req.app.locals.models.teachers.find(function (err, DBteachers){
+  }).then(teachers => {
+    // console.log(tests);
+    res.json({ok: true, response: teachers});
+    return;
+  }).catch(err => {
+    res.json({ok: false, message: err.message});
+    return;
+  });
+});
 
 router.post('/tests', (req, res, next)=>{
   if( req.is('application/json') ){
@@ -121,6 +135,85 @@ router.post('/classes', (req, res, next)=>{
   }
 
 })
+
+router.get('/classes/', function(req, res, next) {
+  req.app.locals.models.classes.find(function (err, DBclasses){
+  }).then(classes => {
+
+
+    console.log(classes);
+    let promissesArray = classes.map(oneClass =>{
+      return req.app.locals.models.teachers.findById(oneClass.teacher);
+    })
+
+   Promise.all(promissesArray).then(teachers=>{
+    //  console.log(teachers);
+    let classesVector = classes.map((oneClass,i) => {
+      return {
+        id: oneClass._id,
+        name: oneClass.name,
+        optional: oneClass.optional,
+        teacher: {
+          id: teachers[i].id,
+          name: teachers[i].name,
+          email: teachers[i].email,
+          phone: teachers[i].phone,
+          curriculumLates: teachers[i].curriculumLates,
+        },
+      }
+    });
+
+     res.json({ok: true, response: classesVector});
+     return;
+   }).catch(err=>{
+    res.json({ok: false, message: err.message});
+    return;
+   })
+
+
+
+    // res.json({ok: true, response: classes});
+    // return;
+  }).catch(err => {
+    res.json({ok: false, message: err.message});
+    return;
+  });
+});
+
+router.get('/classes/:classesId', function(req, res, next) {
+  req.app.locals.models.classes.findOne({_id: req.params.classesId},(err,DBclasses)=>{
+    // nothing
+  }).then(classes=>{
+
+    req.app.locals.models.teachers.findById(classes.teacher,function(err,DBteacher){
+    }).then(teacher=>{
+      // classes.teacher = teacher;
+      res.json({ok: true, response: {
+        id: classes._id,
+        name: classes.name,
+        optional: classes.optional,
+        teacher: {
+          id: teacher.id,
+          name: teacher.name,
+          email: teacher.email,
+          phone: teacher.phone,
+          curriculumLates: teacher.curriculumLates,
+        },
+      }});
+      return;
+    }).catch(err=>{
+      res.json({ok: false, message: err.message});
+      return;
+    })
+
+
+    // res.json({ok: true, response: classes});
+    // return;
+  }).catch(err=>{
+    res.json({ok: false, message: err.message});
+    return;
+  })
+});
 
 router.post('/events', (req, res, next)=>{
   if( req.is('application/json') ){
