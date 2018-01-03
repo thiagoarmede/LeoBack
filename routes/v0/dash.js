@@ -50,6 +50,22 @@ router.get("/teachers/", function(req, res, next) {
     });
 });
 
+router.delete("/teachers/:teachersId", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  req.app.locals.models.teachers
+    .findOne({ _id: req.params.teachersId }, (err, DBteachers) => {
+      // nothing
+    }).remove()
+    .then(teachers => {
+      res.json({ ok: true});
+      return;
+    })
+    .catch(err => {
+      res.json({ ok: false, message: err.message });
+      return;
+    });
+});
+
 router.post("/tests", (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   if (req.is("application/json")) {
