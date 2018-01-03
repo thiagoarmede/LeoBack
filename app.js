@@ -7,6 +7,7 @@ var bodyParser = require("body-parser");
 var bot = require("./routes/v0/bot");
 var dash = require("./routes/v0/dash");
 var app = express();
+var cors = require('cors');
 
 var DB = require("./database/db");
 
@@ -14,6 +15,7 @@ DB.connect();
 
 app.locals.models = DB.models;
 
+app.use(cors());
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -39,6 +41,8 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   // res.render('error');
+
+  res.header("Access-Control-Allow-Origin", "*");
   res.json({ error: true, message: err.message });
 });
 
