@@ -233,6 +233,24 @@ router.get("/classes/:classesId", function(req, res, next) {
     });
 });
 
+
+router.delete("/classes/:classesId", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  req.app.locals.models.classes
+    .findOne({ _id: req.params.classesId }, (err, DBclasses) => {
+      // nothing
+    }).remove()
+    .then(classes => {
+      res.json({ok: true});
+      return;
+    })
+    .catch(err => {
+      res.json({ ok: false, message: err.message });
+      return;
+    });
+});
+
+
 router.post("/events", (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   if (req.is("application/json")) {
