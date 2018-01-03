@@ -24,6 +24,7 @@ var router = express.Router();
 // })
 
 router.get("/users/", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.users
     .find(function(err, DBusers) {})
     .then(users => {
@@ -38,6 +39,7 @@ router.get("/users/", function(req, res, next) {
 });
 
 router.get("/users/:userId", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.users
     .findOne({ _id: req.params.userId }, (err, DBuser) => {
       // nothing
@@ -53,6 +55,7 @@ router.get("/users/:userId", function(req, res, next) {
 });
 
 router.get("/groups", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.groups
     .find(function(err, DBGroups) {})
     .then(groups => {
@@ -67,6 +70,7 @@ router.get("/groups", function(req, res, next) {
 });
 
 router.get("/groups/:groupId", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.groups
     .findOne({ _id: req.params.groupId }, (err, DBgroup) => {
       // nothing
@@ -82,6 +86,7 @@ router.get("/groups/:groupId", function(req, res, next) {
 });
 
 router.get("/tests/", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.tests
     .find(function(err, DBTests) {})
     .then(tests => {
@@ -96,6 +101,7 @@ router.get("/tests/", function(req, res, next) {
 });
 
 router.get("/tests/:testId", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.tests
     .findOne({ _id: req.params.testId }, (err, DBTests) => {
       // nothing
@@ -111,6 +117,7 @@ router.get("/tests/:testId", function(req, res, next) {
 });
 
 router.get("/announcements/", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.announcements
     .find(function(err, DBAnnouncements) {})
     .then(announcements => {
@@ -125,6 +132,7 @@ router.get("/announcements/", function(req, res, next) {
 });
 
 router.get("/announcements/:announcementsId", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.announcements
     .findOne({ _id: req.params.announcementsId }, (err, DBAnnouncements) => {
       // nothing
@@ -140,6 +148,7 @@ router.get("/announcements/:announcementsId", function(req, res, next) {
 });
 
 router.get("/classes/", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.classes
     .find(function(err, DBclasses) {})
     .then(classes => {
@@ -154,6 +163,7 @@ router.get("/classes/", function(req, res, next) {
 });
 
 router.get("/classes/:classesId", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.classes
     .findOne({ _id: req.params.classesId }, (err, DBclasses) => {
       // nothing
@@ -169,6 +179,7 @@ router.get("/classes/:classesId", function(req, res, next) {
 });
 
 router.get("/events/", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.events
     .find(function(err, DBevents) {})
     .then(events => {
@@ -183,6 +194,7 @@ router.get("/events/", function(req, res, next) {
 });
 
 router.get("/events/:eventsId", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.events
     .findOne({ _id: req.params.eventsId }, (err, DBevents) => {
       // nothing
@@ -198,6 +210,7 @@ router.get("/events/:eventsId", function(req, res, next) {
 });
 
 router.get("/info/", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.info
     .find(function(err, DBinfo) {})
     .then(info => {
@@ -212,6 +225,7 @@ router.get("/info/", function(req, res, next) {
 });
 
 router.get("/info/:infoId", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.info
     .findOne({ _id: req.params.infoId }, (err, DBinfo) => {
       // nothing
@@ -227,6 +241,7 @@ router.get("/info/:infoId", function(req, res, next) {
 });
 
 router.get("/teachers/", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.teachers
     .find(function(err, DBteachers) {})
     .then(teachers => {
@@ -241,6 +256,7 @@ router.get("/teachers/", function(req, res, next) {
 });
 
 router.get("/teachers/:teachersId", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.teachers
     .findOne({ _id: req.params.teachersId }, (err, DBteachers) => {
       // nothing
@@ -256,6 +272,7 @@ router.get("/teachers/:teachersId", function(req, res, next) {
 });
 
 router.get("/find/oldtests/", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.oldtests
     .find(
       { class: new RegExp("^" + req.query.class, "i") },
@@ -274,6 +291,7 @@ router.get("/find/oldtests/", function(req, res, next) {
 });
 
 router.get("/oldtests/", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.oldtests
     .find(function(err, DBoldtests) {})
     .then(oldtests => {
@@ -288,6 +306,7 @@ router.get("/oldtests/", function(req, res, next) {
 });
 
 router.get("/oldtests/:oldtestsId", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.oldtests
     .findOne({ _id: req.params.oldtestsId }, (err, DBoldtests) => {
       // nothing
@@ -303,6 +322,7 @@ router.get("/oldtests/:oldtestsId", function(req, res, next) {
 });
 
 router.get("/finaltests/", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.finaltests
     .find(function(err, DBfinaltests) {})
     .then(finaltests => {
@@ -317,6 +337,7 @@ router.get("/finaltests/", function(req, res, next) {
 });
 
 router.get("/finaltests/:finaltestsId", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.finaltests
     .findOne({ _id: req.params.finaltestsId }, (err, DBfinaltests) => {
       // nothing
@@ -333,6 +354,7 @@ router.get("/finaltests/:finaltestsId", function(req, res, next) {
 
 // for creations
 router.post("/users", (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
   if (req.is("application/json")) {
     let newFinalTest = new req.app.locals.models.users({
       userName: req.body.userName,
