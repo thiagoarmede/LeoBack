@@ -380,6 +380,68 @@ router.post("/oldtests", (req, res, next) => {
   }
 });
 
+router.get("/oldtests/", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+
+  req.app.locals.models.oldtests
+    .find(function(err, DBoldtests) {})
+    .then(oldtests => {
+      console.log(oldtests);
+      let promissesArrayClasses = oldtests.map(oldTest=> {
+        return req.app.locals.models.classes.findById(oldTest.class);
+      })
+      
+      Promise.all(promissesArrayClasses)
+      .then(classes => {
+         console.log(classes);
+         let promissesArrayTeacher = classes.map(oneClass =>{
+           return req.app.locals.models.teachers.findById(oneClass.teacher);
+         })
+         Promise.all(promissesArrayTeacher)
+         .then(teachers => {
+           let oldTestsVector = oldtests.map((oldTest,i)=>{
+             return {
+               id: oldTest._id,
+               year: oldTest.year,
+               link: oldTest.link,
+               class: {
+                 id: classes[i]._id,
+                 name: classes[i].name,
+                 optional: classes[i].optional,
+                 teacher: {
+                   id: teachers[i]._id,
+                   name: teachers[i].name,
+                   email: teachers[i].email,
+                   phone: teachers[i].phone,
+                   curriculumLates: teachers[i].curriculumLates
+                 }
+               }
+             }
+           })
+           res.json({ ok: true, response: oldTestsVector });
+           return;
+
+         })
+        .catch(err => {
+          res.json({ ok: false, message: err.message });
+          return;
+        });
+
+      })
+      .catch(err => {
+        res.json({ ok: false, message: err.message });
+        return;
+      });
+
+      // res.json({ok: true, response: oldtests});
+      // return;
+    })
+    .catch(err => {
+      res.json({ ok: false, message: err.message });
+      return;
+    });
+});
+
 router.post("/finaltests", (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   if (req.is("application/json")) {
