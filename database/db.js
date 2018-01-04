@@ -79,7 +79,8 @@ var Schemas = {
   oldtests: mongoose.Schema({
     class: String,
     year: Number,
-    link: String
+    link: String,
+    name: String
   }),
 
   finaltests: mongoose.Schema({

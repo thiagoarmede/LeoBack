@@ -361,7 +361,8 @@ router.post("/oldtests", (req, res, next) => {
     let newOldTests = new req.app.locals.models.oldtests({
       class: req.body.class,
       year: req.body.year,
-      link: req.body.link
+      link: req.body.link,
+      name: req.body.name,
     });
 
     newOldTests
@@ -404,6 +405,7 @@ router.get("/oldtests/", function(req, res, next) {
                id: oldTest._id,
                year: oldTest.year,
                link: oldTest.link,
+               name: oldTest.name,
                class: {
                  id: classes[i]._id,
                  name: classes[i].name,
