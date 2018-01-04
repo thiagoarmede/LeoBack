@@ -7,7 +7,7 @@ var bodyParser = require("body-parser");
 var bot = require("./routes/v0/bot");
 var dash = require("./routes/v0/dash");
 var app = express();
-var cors = require('cors');
+var cors = require("cors");
 
 var DB = require("./database/db");
 
