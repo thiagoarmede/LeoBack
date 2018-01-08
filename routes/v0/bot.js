@@ -147,14 +147,46 @@ router.get("/announcements/:announcementsId", function(req, res, next) {
     });
 });
 
+
 router.get("/classes/", function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
+
   req.app.locals.models.classes
     .find(function(err, DBclasses) {})
     .then(classes => {
-      // console.log(tests);
-      res.json({ ok: true, response: classes });
-      return;
+      // console.log(classes);
+      let promissesArray = classes.map(oneClass => {
+        return req.app.locals.models.teachers.findById(oneClass.teacher);
+      });
+
+      Promise.all(promissesArray)
+        .then(teachers => {
+          //  console.log(teachers);
+          let classesVector = classes.map((oneClass, i) => {
+            return {
+              id: oneClass._id,
+              name: oneClass.name,
+              optional: oneClass.optional,
+              teacher: {
+                id: teachers[i].id,
+                name: teachers[i].name,
+                email: teachers[i].email,
+                phone: teachers[i].phone,
+                curriculumLates: teachers[i].curriculumLates
+              }
+            };
+          });
+
+          res.json({ ok: true, response: classesVector });
+          return;
+        })
+        .catch(err => {
+          res.json({ ok: false, message: err.message });
+          return;
+        });
+
+      // res.json({ok: true, response: classes});
+      // return;
     })
     .catch(err => {
       res.json({ ok: false, message: err.message });
@@ -169,8 +201,34 @@ router.get("/classes/:classesId", function(req, res, next) {
       // nothing
     })
     .then(classes => {
-      res.json({ ok: true, response: classes });
-      return;
+      req.app.locals.models.teachers
+        .findById(classes.teacher, function(err, DBteacher) {})
+        .then(teacher => {
+          // classes.teacher = teacher;
+          res.json({
+            ok: true,
+            response: {
+              id: classes._id,
+              name: classes.name,
+              optional: classes.optional,
+              teacher: {
+                id: teacher.id,
+                name: teacher.name,
+                email: teacher.email,
+                phone: teacher.phone,
+                curriculumLates: teacher.curriculumLates
+              }
+            }
+          });
+          return;
+        })
+        .catch(err => {
+          res.json({ ok: false, message: err.message });
+          return;
+        });
+
+      // res.json({ok: true, response: classes});
+      // return;
     })
     .catch(err => {
       res.json({ ok: false, message: err.message });
@@ -292,12 +350,58 @@ router.get("/find/oldtests/", function(req, res, next) {
 
 router.get("/oldtests/", function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
+
   req.app.locals.models.oldtests
     .find(function(err, DBoldtests) {})
     .then(oldtests => {
-      // console.log(tests);
-      res.json({ ok: true, response: oldtests });
-      return;
+      // console.log(oldtests);
+      let promissesArrayClasses = oldtests.map(oldTest => {
+        return req.app.locals.models.classes.findById(oldTest.class);
+      });
+
+      Promise.all(promissesArrayClasses)
+        .then(classes => {
+          // console.log(classes);
+          let promissesArrayTeacher = classes.map(oneClass => {
+            return req.app.locals.models.teachers.findById(oneClass.teacher);
+          });
+          Promise.all(promissesArrayTeacher)
+            .then(teachers => {
+              let oldTestsVector = oldtests.map((oldTest, i) => {
+                return {
+                  id: oldTest._id,
+                  year: oldTest.year,
+                  link: oldTest.link,
+                  name: oldTest.name,
+                  class: {
+                    id: classes[i]._id,
+                    name: classes[i].name,
+                    optional: classes[i].optional,
+                    teacher: {
+                      id: teachers[i]._id,
+                      name: teachers[i].name,
+                      email: teachers[i].email,
+                      phone: teachers[i].phone,
+                      curriculumLates: teachers[i].curriculumLates
+                    }
+                  }
+                };
+              });
+              res.json({ ok: true, response: oldTestsVector });
+              return;
+            })
+            .catch(err => {
+              res.json({ ok: false, message: err.message });
+              return;
+            });
+        })
+        .catch(err => {
+          res.json({ ok: false, message: err.message });
+          return;
+        });
+
+      // res.json({ok: true, response: oldtests});
+      // return;
     })
     .catch(err => {
       res.json({ ok: false, message: err.message });
