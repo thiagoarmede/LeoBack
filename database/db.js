@@ -24,7 +24,9 @@ var Schemas = {
       required: true
     },
     value: {
-      type: Number
+      type: Number,
+      min: [0, 'Evento com valor negativo'],
+      max: [1000, 'Niguem vai pagar por isso']
     },
     description: {
       type: String
@@ -199,10 +201,15 @@ var Schemas = {
   users: mongoose.Schema({
     userName: {
       type: String,
-      required: true
+      required: true,
+      minlength: 5,
+      maxlength: 32,
+      match: [/([a-z]|[A-Z]|\d|_)+/,"what brother?"],
+      unique: true
     },
     telegramHash: {
       type: String,
+      unique: true,
       required: true
     },
     name: {
