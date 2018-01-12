@@ -15,12 +15,27 @@ var createDataBaseConnection = () => {
 
 var Schemas = {
   tests: mongoose.Schema({
-    class: String,
-    name: String,
-    value: Number,
-    description: String,
-    startDate: Date,
-    endDate: Date
+    class: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    value: {
+      type: Number
+    },
+    description: {
+      type: String
+    },
+    startDate: {
+      type: Date,
+      required: true
+    },
+    endDate: {
+      type: Date
+    }
   }),
 
   // kittens: mongoose.Schema({
@@ -28,71 +43,176 @@ var Schemas = {
   // }),
 
   teachers: mongoose.Schema({
-    name: String,
-    nicknames: Array,
-    email: String,
-    phone: String,
-    curriculumLates: String
+    name: {
+      type: String,
+      required: true
+    },
+    nicknames: {
+      type: Array
+    },
+    email: {
+      type: String
+    },
+    phone: {
+      type: String
+    },
+    curriculumLates: {
+      type: String,
+      required: true
+    }
   }),
 
   announcements: mongoose.Schema({
-    title: String,
-    message: String,
-    link: String,
-    data: Date
+    title: {
+      type: String,
+      required: true
+    },
+    message: {
+      type: String,
+      required: true
+    },
+    link: {
+      type: String
+    },
+    data: {
+      type: Date,
+      required: true
+    }
   }),
 
   classes: mongoose.Schema({
-    name: String,
-    optional: Boolean,
-    teacher: String
+    name: {
+      type: String,
+      required: true
+    },
+    optional: {
+      type: Boolean,
+      required: true
+    },
+    teacher: {
+      type: String,
+      required: true
+    }
   }),
 
   events: mongoose.Schema({
-    name: String,
-    description: String,
-    paid: Boolean,
-    startDate: Date,
-    endDate: Date,
-    link: String
+    name: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String,
+      required: true
+    },
+    paid: {
+      type: Boolean
+    },
+    startDate: {
+      type: Date,
+      required: true
+    },
+    endDate: {
+      type: Date
+    },
+    link: {
+      type: String
+    }
   }),
 
   groups: mongoose.Schema({
-    name: String,
-    description: String,
-    inviteLink: String,
-    classGroup: Boolean
+    name: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String
+    },
+    inviteLink: {
+      type: String,
+      required: true
+    },
+    classGroup: {
+      type: Boolean,
+      required: true
+    }
   }),
 
   info: mongoose.Schema({
-    name: String,
-    description: String,
-    link: String
+    name: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String,
+      required: true
+    },
+    link: {
+      type: String
+    }
   }),
 
   message: mongoose.Schema({
-    user: String,
-    date: Date,
-    message: String
+    user: {
+      type: String,
+      required: true
+    },
+    date: {
+      type: Date,
+      required: true
+    },
+    message: {
+      type: String,
+      required: true
+    }
   }),
 
   oldtests: mongoose.Schema({
-    class: String,
-    year: Number,
-    link: String,
-    name: String
+    class: {
+      type: String,
+      required: true
+    },
+    year: {
+      type: Number,
+      required: true
+    },
+    link: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    }
   }),
 
   finaltests: mongoose.Schema({
-    class: String,
-    date: Date
+    class: {
+      type: String,
+      required: true
+    },
+    date: {
+      type: Date,
+      required: true
+    }
   }),
 
   users: mongoose.Schema({
-    userName: String,
-    telegramHash: String,
-    name: String,
-    createdAt: Date
+    userName: {
+      type: String,
+      required: true
+    },
+    telegramHash: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    createdAt: {
+      type: Date,
+      required: true
+    }
   })
 };
 
