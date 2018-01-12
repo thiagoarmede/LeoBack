@@ -464,7 +464,7 @@ router.post("/users", (req, res, next) => {
       userName: req.body.userName,
       telegramHash: req.body.telegramHash,
       name: req.body.name,
-      createdAt: req.body.createdAt
+      createdAt: new Date()
     });
 
     newFinalTest
