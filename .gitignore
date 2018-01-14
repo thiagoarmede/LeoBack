@@ -1,2 +1,4 @@
 node_modules/
 others/config.js
+others/cert.pem
+others/key.pem
