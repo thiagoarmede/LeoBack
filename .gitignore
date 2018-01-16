@@ -1,4 +1,5 @@
 node_modules/
 others/config.js
-others/cert.pem
-others/key.pem
+others/private.key
+others/certificate.crt
+others/ca_bundle.crt

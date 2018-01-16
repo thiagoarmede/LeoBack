@@ -30,9 +30,10 @@ http.createServer(function (req, res) {
 
 
 const sslFiles ={
-  key: fs.readFileSync("others/key.pem"),
-  cert: fs.readFileSync("others/cert.pem"),
-  passphrase: config.pass
+  key: fs.readFileSync("others/private.key"),
+  cert: fs.readFileSync("others/certificate.crt"),
+  ca: fs.readFileSync("others/ca_bundle.crt")
+  // passphrase: config.pass
 };
 var server = https.createServer(sslFiles,app);
 /**
