@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/v0/bot", bot);
 app.use("/v0/dash", dash);
-app.use("/.well-known", DomainVerify);
+app.use("/", DomainVerify);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

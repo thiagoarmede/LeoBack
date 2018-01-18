@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Can't break my DNS</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="DNS FREEDOM">
+    <meta name="keywords" content="DNS">
+    <meta name="author" content="Leonardo the bot">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style>
+    html {
+        height: 100%;
+        width: 100%;
+    }
+    body {
+        background-image: url("https://media3.giphy.com/media/CaiVJuZGvR8HK/100.gif");
+        background-repeat: repeat;
+        height: 90%;
+        width: 90%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    h1 {
+        color: white;
+        font-weight: bold;
+        font-family: Arial;
+        font-size: 5rem;
+        transition: all 0.2s ease;
+        text-shadow: 0 0 10px #000;
+    }
+    .small {
+        font-size: 4rem;
+    }
+    .big {
+        font-size: 6rem;
+    }
+</style>
+<body>
+    <h1 id="myid" class="small">CAN'T BREAK MY DNS!</h1>
+</body>
+<script>
+    var audio = new Audio("http://www.freesfx.co.uk/rx2/mp3s/5/17585_1461957828.mp3");
+    audio.play();
+    var title = document.querySelector("#myid");
+    var i = 0;
+    setInterval(function () {
+        i++;
+        switch (i % 2) {
+            case 0:
+                title.className = "small";
+                navigator.vibrate(100)
+                break;
+            case 1:
+                title.className = "big";
+                navigator.vibrate(100)
+                break;
+        }
+    }, 250)
+</script>
+</html>
