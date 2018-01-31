@@ -147,7 +147,6 @@ router.get("/announcements/:announcementsId", function(req, res, next) {
     });
 });
 
-
 router.get("/classes/", function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
 
@@ -331,21 +330,83 @@ router.get("/teachers/:teachersId", function(req, res, next) {
 
 router.get("/find/oldtests/", function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  req.app.locals.models.oldtests
-    .find(
-      { class: new RegExp("^" + req.query.class, "i") },
+  console.log("Param =>", req.query.class);
+
+  req.app.locals.models.classes
+    .findOne(
+      {
+        name: new RegExp("^" + req.query.class, "igm")
+      },
       (err, DBoldtests) => {
         // nothing
       }
     )
-    .then(oldtests => {
-      res.json({ ok: true, response: oldtests });
-      return;
+    .then(returnedClass => {
+      req.app.locals.models.teachers
+        .findById(returnedClass.teacher)
+        .then(teacher => {
+          req.app.locals.models.oldtests
+            .find({ class: returnedClass.id })
+            .then(oldtests => {
+              let oldTestsVector = oldtests.map((oldTest, i) => {
+                return {
+                  id: oldTest._id,
+                  year: oldTest.year,
+                  link: oldTest.link,
+                  name: oldTest.name,
+                  class: {
+                    id: returnedClass._id,
+                    name: returnedClass.name,
+                    optional: returnedClass.optional,
+                    teacher: {
+                      id: teacher._id,
+                      name: teacher.name,
+                      email: teacher.email,
+                      phone: teacher.phone,
+                      curriculumLates: teacher.curriculumLates
+                    }
+                  }
+                };
+              });
+
+              res.json({ ok: true, response: oldTestsVector });
+              return;
+            })
+            .catch(err => {
+              res.json({ ok: false, response: err.message });
+              return;
+            });
+        })
+        .catch(err => {
+          res.json({ ok: false, response: err.message });
+          return;
+        });
+
+      console.log(returnedClass.id);
+
+      // res.json({ ok: true, response: "se fodeu" });
+      // return;
     })
     .catch(err => {
       res.json({ ok: false, message: err.message });
       return;
     });
+
+  // req.app.locals.models.oldtests
+  //   .find(
+  //     { class: new RegExp("^" + req.query.class, "igm") },
+  //     (err, DBoldtests) => {
+  //       // nothing
+  //     }
+  //   )
+  //   .then(oldtests => {
+  //     res.json({ ok: true, response: oldtests });
+  //     return;
+  //   })
+  //   .catch(err => {
+  //     res.json({ ok: false, message: err.message });
+  //     return;
+  //   });
 });
 
 router.get("/oldtests/", function(req, res, next) {
