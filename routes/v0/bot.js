@@ -330,7 +330,7 @@ router.get("/teachers/:teachersId", function(req, res, next) {
 
 router.get("/find/oldtests/", function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  console.log("Param =>", req.query.class);
+  // console.log("Param =>", req.query.class);
 
   req.app.locals.models.classes
     .findOne(
@@ -382,7 +382,7 @@ router.get("/find/oldtests/", function(req, res, next) {
           return;
         });
 
-      console.log(returnedClass.id);
+      // console.log(returnedClass.id);
 
       // res.json({ ok: true, response: "se fodeu" });
       // return;
