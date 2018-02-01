@@ -1,4 +1,5 @@
 var express = require("express");
+var morgan = require("morgan");
 var path = require("path");
 var favicon = require("serve-favicon");
 var logger = require("morgan");
@@ -7,6 +8,7 @@ var bodyParser = require("body-parser");
 var bot = require("./routes/v0/bot");
 var dash = require("./routes/v0/dash");
 var DomainVerify = require("./routes/domainverify");
+var config = require("./others/config");
 
 var app = express();
 var cors = require("cors");
@@ -27,6 +29,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/v0/bot", bot);
 app.use("/v0/dash", dash);
 app.use("/", DomainVerify);
+app.set("jwtSecret",config.jwtSecret);
+
+app.use(morgan('dev'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

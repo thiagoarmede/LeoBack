@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+var jwt = require("jsonwebtoken");
 
 /* GET users listing. */
 router.get("/", function(req, res, next) {
@@ -488,6 +489,103 @@ router.post("/users", (req, res, next) => {
       });
   } else {
     res.status(400).json({ ok: false, message: "invalid body content type" });
+    return;
+  }
+});
+
+router.post("/dashuser", (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  if (req.is("application/json")) {
+    let dashUsers = new req.app.locals.models.dashUsers({
+      username: req.body.username,
+      password: req.body.password,
+      isAdmin: req.body.admin
+    });
+
+    dashUsers
+      .save()
+      .then(item => {
+        res.status(201).json({ ok: true, id: item.id });
+        return;
+      })
+      .catch(err => {
+        res.json({ ok: false, message: err.message });
+        return;
+      });
+  } else {
+    res.status(400).json({ ok: false, message: "invalid body content type" });
+    return;
+  }
+});
+
+router.post("/login", (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  if (req.is("application/json")) {
+    // let dashUsers = new req.app.locals.models.dashUsers({
+    //   username: req.body.username,
+    //   password: req.body.password,
+    //   isAdmin: req.body.admin
+    // });
+
+    req.app.locals.models.dashUsers
+      .findOne({
+        username: req.body.username
+      })
+      .then(dashUser => {
+        if (dashUser.password != req.body.password) {
+          res.json({ ok: false, message: "Senha errada" });
+          return;
+        } else {
+          const payload = {
+            admin: dashUser.isAdmin
+          };
+
+          const JWTtoken = jwt.sign(payload, req.app.get("jwtSecret"), {
+            expiresIn: 1440 * 60 // expires in 24 hours
+          });
+
+          res.status(201).json({ ok: true, reponse: { token: JWTtoken } });
+          return;
+        }
+      })
+      .catch(err => {
+        res.json({ ok: false, message: err.message });
+        return;
+      });
+
+    // dashUsers
+    //   .save()
+    //   .then(item => {
+    //     res.status(201).json({ ok: true, id: item.id });
+    //     return;
+    //   })
+    //   .catch(err => {
+    //     res.json({ ok: false, message: err.message });
+    //     return;
+    //   });
+  } else {
+    res.status(400).json({ ok: false, message: "invalid body content type" });
+    return;
+  }
+});
+
+router.get("/testAuth", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  console.log(req.query.token);
+  const tokenReceived = req.query.token;
+
+  if (tokenReceived) {
+    jwt.verify(tokenReceived, req.app.get("jwtSecret"), (err, decode) => {
+      if (err) {
+        res.json({ ok: false, message: err.message });
+        return;
+      } else {
+        res.json({ ok: true, decoded: decode });
+        return;
+      }
+    });
+  } else {
+    res.json({ ok: false, message: "User not loged in" });
     return;
   }
 });

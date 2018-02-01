@@ -25,8 +25,8 @@ var Schemas = {
     },
     value: {
       type: Number,
-      min: [0, 'Evento com valor negativo'],
-      max: [1000, 'Niguem vai pagar por isso']
+      min: [0, "Evento com valor negativo"],
+      max: [1000, "Niguem vai pagar por isso"]
     },
     description: {
       type: String
@@ -39,10 +39,6 @@ var Schemas = {
       type: Date
     }
   }),
-
-  // kittens: mongoose.Schema({
-  //   name: String,
-  // }),
 
   teachers: mongoose.Schema({
     name: {
@@ -204,7 +200,7 @@ var Schemas = {
       required: true,
       minlength: 5,
       maxlength: 32,
-      match: [/([a-z]|[A-Z]|\d|_)+/,"what brother?"],
+      match: [/([a-z]|[A-Z]|\d|_)+/, "what brother?"],
       unique: true
     },
     telegramHash: {
@@ -220,7 +216,28 @@ var Schemas = {
       type: Date,
       required: true
     }
-  })
+  }),
+
+  dashboardUser: mongoose.Schema({
+    username: {
+      type: String,
+      required: true,
+      minlength: 5,
+      maxlength: 32,
+      match: [/([a-z]|\d|_)+/, "what brother?"],
+      unique: true
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: 5,
+      maxlength: 32
+    },
+    isAdmin: {
+      type: Boolean,
+      require: true
+    }
+  }),
 };
 
 var ColectionsNames = {
@@ -235,7 +252,8 @@ var ColectionsNames = {
   info: "info",
   oldtests: "oldtests",
   finaltests: "finaltests",
-  message: "messages"
+  message: "messages",
+  dashUsers: "dashboard_users",
 };
 
 var Models = {
@@ -252,7 +270,8 @@ var Models = {
   info: mongoose.model(ColectionsNames.info, Schemas.info),
   oldtests: mongoose.model(ColectionsNames.oldtests, Schemas.oldtests),
   finaltests: mongoose.model(ColectionsNames.finaltests, Schemas.finaltests),
-  message: mongoose.model(ColectionsNames.message, Schemas.message)
+  message: mongoose.model(ColectionsNames.message, Schemas.message),
+  dashUsers: mongoose.model(ColectionsNames.dashUsers, Schemas.dashboardUser),
 
   // tests: mongoose.model(ColectionsNames.tests, Schemas.tests),
   // // kittens: mongoose.model(ColectionsNames.kittens, Schemas.kittens),
