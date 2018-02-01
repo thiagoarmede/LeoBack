@@ -544,7 +544,7 @@ router.post("/login", (req, res, next) => {
             expiresIn: 1440 * 60 // expires in 24 hours
           });
 
-          res.status(201).json({ ok: true, reponse: { token: JWTtoken } });
+          res.status(201).json({ ok: true, reponse: { token: JWTtoken, id: dashUsers._id } });
           return;
         }
       })
