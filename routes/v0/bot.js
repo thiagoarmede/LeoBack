@@ -1,27 +1,6 @@
 var express = require("express");
+var _ = require("lodash");
 var router = express.Router();
-
-// router.get('/kitten', function (req, res, next){
-//   let kittens = [];
-//   req.app.locals.models.kittens.find(function (err, DBkittens){
-//     kittens = DBkittens;
-//   }).then(something => {
-//     console.log(something);
-//     res.json({ok: true, response: kittens});
-//   }).catch(err=>{
-//     res.json({ok: false, message: err.message});
-//   })
-// });
-
-// router.get('/kitten/:kittenName', function(req, res, next){
-
-//   let myData = new req.app.locals.models.kittens({name: req.params.kittenName});
-//   myData.save().then(item =>{
-//     res.json({ok: true, name: req.params.kittenName});
-//   }).catch(err =>{
-//     res.json({ok: false, message: err.message});
-//   })
-// })
 
 router.get("/users/", function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -435,6 +414,101 @@ router.get("/find/oldtests/", function(req, res, next) {
       res.json({ ok: false, message: err.message });
       return;
     });
+});
+
+router.get("/oldtests/classes", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+
+  // var oldtests = [];
+  // oldtests[0] = req.app.locals.models.oldtests.find({});
+
+  req.app.locals.models.oldtests
+    .find({})
+    .then(oldtests => {
+      var classesPromisses = oldtests.map(oldtest =>
+        req.app.locals.models.classes.findById(oldtest.class)
+      );
+      Promise.all(classesPromisses)
+        .then(classes => {
+          
+          var reponse = classes.map(oneClass => {
+            return { id: oneClass._id, name: oneClass.name };
+          });
+
+         response = reponse.filter((item,i )=>{
+           return reponse.findIndex(e =>{
+            return e.toString() == item.toString()}) != i;
+         })
+
+          res.json({ ok: true, response: response });
+          return;
+        })
+        .catch(err => {
+          res.json({ ok: false, message: err.message });
+          return;
+        });
+    })
+    .catch(err => {
+      res.json({ ok: false, message: err.message });
+      return;
+    });
+
+  // req.app.locals.models.oldtests
+  //   .find(function(err, DBoldtests) {})
+  //   .then(oldtests => {
+  //     // console.log(oldtests);
+  //     let promissesArrayClasses = oldtests.map(oldTest => {
+  //       return req.app.locals.models.classes.findById(oldTest.class);
+  //     });
+
+  //     Promise.all(promissesArrayClasses)
+  //       .then(classes => {
+  //         // console.log(classes);
+  //         let promissesArrayTeacher = classes.map(oneClass => {
+  //           return req.app.locals.models.teachers.findById(oneClass.teacher);
+  //         });
+  //         Promise.all(promissesArrayTeacher)
+  //           .then(teachers => {
+  //             let oldTestsVector = oldtests.map((oldTest, i) => {
+  //               return {
+  //                 id: oldTest._id,
+  //                 year: oldTest.year,
+  //                 link: oldTest.link,
+  //                 name: oldTest.name,
+  //                 class: {
+  //                   id: classes[i]._id,
+  //                   name: classes[i].name,
+  //                   optional: classes[i].optional,
+  //                   teacher: {
+  //                     id: teachers[i]._id,
+  //                     name: teachers[i].name,
+  //                     email: teachers[i].email,
+  //                     phone: teachers[i].phone,
+  //                     curriculumLates: teachers[i].curriculumLates
+  //                   }
+  //                 }
+  //               };
+  //             });
+  //             res.json({ ok: true, response: oldTestsVector });
+  //             return;
+  //           })
+  //           .catch(err => {
+  //             res.json({ ok: false, message: err.message });
+  //             return;
+  //           });
+  //       })
+  //       .catch(err => {
+  //         res.json({ ok: false, message: err.message });
+  //         return;
+  //       });
+
+  //     // res.json({ok: true, response: oldtests});
+  //     // return;
+  //   })
+  //   .catch(err => {
+  //     res.json({ ok: false, message: err.message });
+  //     return;
+  //   });
 });
 
 router.get("/oldtests/", function(req, res, next) {
