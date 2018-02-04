@@ -431,16 +431,23 @@ router.get("/oldtests/classes", function(req, res, next) {
       Promise.all(classesPromisses)
         .then(classes => {
           
-          var reponse = classes.map(oneClass => {
-            return { id: oneClass._id, name: oneClass.name };
-          });
+          // var reponse = classes.map(oneClass => {
+            // return { id: oneClass._id, name: oneClass.name };
+          // });
 
-         response = reponse.filter((item,i )=>{
-           return reponse.findIndex(e =>{
-            return e.toString() == item.toString()}) != i;
-         })
+        //  response = reponse.filter((item,i )=>{
+        //    return reponse.findIndex(e =>{
+        //     return e.toString() == item.toString()}) != i;
+        //  })
 
-          res.json({ ok: true, response: response });
+        var response = new Set();
+        classes.map(oneClass => {
+          response.add(oneClass.name);
+        });
+
+
+
+          res.json({ ok: true, response: Array.from(response) });
           return;
         })
         .catch(err => {
