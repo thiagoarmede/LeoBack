@@ -18,8 +18,15 @@ router.use(function(req, res, next) {
       }
     })
   }else{
-    res.json({ ok: false, message: "User not loged in" });
-    return;
+
+    if(res.path == "/login"){
+      next();
+    }else{
+      res.json({ ok: false, message: "User not loged in" });
+      return;
+    }
+
+    
   }
 
 
