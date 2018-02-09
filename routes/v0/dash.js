@@ -2,6 +2,39 @@ var express = require("express");
 var router = express.Router();
 var jwt = require("jsonwebtoken");
 
+
+router.use(function(req, res, next) {
+  // console.log("HERE\n method: %s\n url: %s\n  path: %s\n", req.method, req.url, req.path);
+  const tokenReceived = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  if(tokenReceived){
+    jwt.verify(tokenReceived, req.app.get("jwtSecret"), (err, decode) => {
+      if(err){
+        res.status(403).json({ ok: false, message: err.message });
+        return;
+      } else{
+        // auth ok
+        next();
+      }
+    })
+  }else{
+
+    if(req.path == "/login"){
+      // console.log("1")      
+      next();
+    }else{
+      res.status(403).json({ ok: false, message: "User not loged in"});
+      return;
+    }
+
+    
+  }
+
+
+  // next();
+});
+
+
 /* GET users listing. */
 router.get("/", function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
