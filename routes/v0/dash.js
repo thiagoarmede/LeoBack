@@ -10,7 +10,7 @@ router.use(function(req, res, next) {
   if(tokenReceived){
     jwt.verify(tokenReceived, req.app.get("jwtSecret"), (err, decode) => {
       if(err){
-        res.json({ ok: false, message: err.message });
+        res.status(403).json({ ok: false, message: err.message });
         return;
       } else{
         // auth ok
@@ -19,10 +19,11 @@ router.use(function(req, res, next) {
     })
   }else{
 
-    if(res.path == "/login"){
+    if(req.path == "/login"){
+      // console.log("1")      
       next();
     }else{
-      res.json({ ok: false, message: "User not loged in" });
+      res.status(403).json({ ok: false, message: "User not loged in"});
       return;
     }
 
