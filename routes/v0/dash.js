@@ -382,6 +382,23 @@ router.post("/oldtests", (req, res, next) => {
   }
 });
 
+router.delete("/oldtests/:oldtestsId", (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  req.app.locals.models.oldtests
+    .findOne({ _id: req.params.oldtestsId }, (err, DBclasses) => {
+      // nothing
+    })
+    .remove()
+    .then(classes => {
+      res.json({ ok: true });
+      return;
+    })
+    .catch(err => {
+      res.json({ ok: false, message: err.message });
+      return;
+    });
+});
+
 router.get("/oldtests/", function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
 
