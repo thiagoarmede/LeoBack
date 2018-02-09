@@ -4,7 +4,7 @@ var jwt = require("jsonwebtoken");
 
 
 router.use(function(req, res, next) {
-  // console.log("HERE -> %s %s %s", req.method, req.url, req.path);
+  console.log("HERE\n method: %s\n url: %s\n  path: %s\n", req.method, req.url, req.path);
   const tokenReceived = req.body.token || req.query.token || req.headers['x-access-token'];
 
   if(tokenReceived){
