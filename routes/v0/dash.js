@@ -136,7 +136,8 @@ router.post("/announcements", (req, res, next) => {
       title: req.body.title,
       message: req.body.message,
       link: req.body.link,
-      data: req.body.data
+      date: req.body.data,
+      delivered: false
     });
 
     newAnnouncement
@@ -153,6 +154,30 @@ router.post("/announcements", (req, res, next) => {
     res.status(400).json({ ok: false, message: "invalid body content type" });
     return;
   }
+});
+
+router.get("/announcements/", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  req.app.locals.models.announcements
+    .find(function(err, DBannouncements) {})
+    .then(announcements => {
+      // console.log(tests);
+      announcements = announcements.map(announcements =>{
+        return {
+          "title": announcements.title,
+          "message": announcements.message,
+          "link": announcements.link,
+          "date": announcements.date,
+          "delivered": announcements.delivered
+        }
+      })
+      res.json({ ok: true, response: announcements });
+      return;
+    })
+    .catch(err => {
+      res.json({ ok: false, message: err.message });
+      return;
+    });
 });
 
 router.post("/classes", (req, res, next) => {

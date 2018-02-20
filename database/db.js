@@ -72,8 +72,12 @@ var Schemas = {
     link: {
       type: String
     },
-    data: {
+    date: {
       type: Date,
+      required: true
+    },
+    delivered:{
+      type: Boolean,
       required: true
     }
   }),
@@ -146,7 +150,7 @@ var Schemas = {
     },
     link: {
       type: String
-    }
+    } 
   }),
 
   message: mongoose.Schema({
