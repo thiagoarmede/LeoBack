@@ -164,6 +164,7 @@ router.get("/announcements/", function(req, res, next) {
       // console.log(tests);
       announcements = announcements.map(announcements =>{
         return {
+          "id": announcements.id,
           "title": announcements.title,
           "message": announcements.message,
           "link": announcements.link,
