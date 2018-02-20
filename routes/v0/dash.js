@@ -136,7 +136,7 @@ router.post("/announcements", (req, res, next) => {
       title: req.body.title,
       message: req.body.message,
       link: req.body.link,
-      date: req.body.data,
+      date: new Date(),
       delivered: false
     });
 
