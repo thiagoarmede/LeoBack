@@ -171,7 +171,7 @@ router.get("/announcements/", function(req, res, next) {
           "date": announcements.date,
           "delivered": announcements.delivered
         }
-      })
+      }).reverse();
       res.json({ ok: true, response: announcements });
       return;
     })
