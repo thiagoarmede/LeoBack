@@ -2,6 +2,31 @@ var express = require("express");
 var _ = require("lodash");
 var router = express.Router();
 
+router.use((req, res, next) =>{
+  console.log({req, res, next});
+  next();
+})
+
+// router.post("/announcements/delivered/", (req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   if (req.is("application/json")) {
+//     const id = req.body.id;
+//     console.log(id);
+//     req.app.locals.models.announcements.findOneAndUpdate({"_id" : ObjectId(id)},{delivered: true})
+//       .then(item => {
+//         res.status(201).json({ ok: true, id: item.id });
+//         return;
+//       })
+//       .catch(err => {
+//         res.json({ ok: false, message: err.message });
+//         return;
+//       });
+//   } else {
+//     res.status(400).json({ ok: false, message: "invalid body content type" });
+//     return;
+//   }
+// });
+
 router.get("/users/", function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.users
@@ -101,6 +126,16 @@ router.get("/announcements/", function(req, res, next) {
     .find(function(err, DBAnnouncements) {})
     .then(announcements => {
       // console.log(tests);
+      announcements = announcements.map(announcements =>{
+        return {
+          "id": announcements.id,
+          "title": announcements.title,
+          "message": announcements.message,
+          "link": announcements.link,
+          "date": announcements.date,
+          "delivered": announcements.delivered
+        }
+      }).reverse();
       res.json({ ok: true, response: announcements });
       return;
     })
@@ -110,13 +145,24 @@ router.get("/announcements/", function(req, res, next) {
     });
 });
 
-router.get("/announcements/:announcementsId", function(req, res, next) {
+
+
+router.get("/announcements/undelivered", function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   req.app.locals.models.announcements
-    .findOne({ _id: req.params.announcementsId }, (err, DBAnnouncements) => {
-      // nothing
-    })
+    .find({delivered: false})
     .then(announcements => {
+      // console.log(tests);
+      announcements = announcements.map(announcements =>{
+        return {
+          "id": announcements.id,
+          "title": announcements.title,
+          "message": announcements.message,
+          "link": announcements.link,
+          "date": announcements.date,
+          "delivered": announcements.delivered
+        }
+      }).reverse();
       res.json({ ok: true, response: announcements });
       return;
     })
@@ -125,6 +171,37 @@ router.get("/announcements/:announcementsId", function(req, res, next) {
       return;
     });
 });
+
+router.get("/announcements/delivered/:announcementsId", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  const id = req.params.announcementsId;
+  req.app.locals.models.announcements.findOneAndUpdate({"_id" : id},{delivered: true})
+    .then(announcement => {
+      res.json({ ok: true, response: {id: announcement.id} });
+      return;
+    })
+    .catch(err => {
+      res.json({ ok: false, message: err.message });
+      return;
+    });
+});
+
+// router.get("/announcements/:announcementsId", function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   req.app.locals.models.announcements
+//     .findOne({ _id: req.params.announcementsId }, (err, DBAnnouncements) => {
+//       // nothing
+//     })
+//     .then(announcements => {
+//       res.json({ ok: true, response: announcements });
+//       return;
+//     })
+//     .catch(err => {
+//       res.json({ ok: false, message: err.message });
+//       return;
+//     });
+// });
+
 
 router.get("/classes/", function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
