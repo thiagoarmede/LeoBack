@@ -2,10 +2,7 @@ var express = require("express");
 var _ = require("lodash");
 var router = express.Router();
 
-router.use((req, res, next) =>{
-  console.log({req, res, next});
-  next();
-})
+
 
 // router.post("/announcements/delivered/", (req, res, next) => {
 //   res.header("Access-Control-Allow-Origin", "*");
